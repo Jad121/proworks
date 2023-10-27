@@ -54,12 +54,7 @@ class AdminController extends Controller
         $idn=$tablename.'_id';
         DB::table($tablename)->where($idn, $id)->update($data);
 
-        $tn="";
-        if($tablename=="ws_user"){
-            $tn="ms_user";
-        }else{
-            $tn=$tablename;
-        }
+    
 
         DB::table($tablename)->where($idn,$id)->update([
             $tn.'_updated_by'=>auth()->user()->ws_user_id,

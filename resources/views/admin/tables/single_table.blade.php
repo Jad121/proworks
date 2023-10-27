@@ -4,11 +4,19 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">{{$tablename}}</h1>
+    <div>
+        Add to this table:
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FormModal" >
+            <i class="fa-solid fa-add"></i>
+        </button>
+
+    </div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">{{$tablename}}</h6>
         </div>
+      
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -19,7 +27,7 @@
                             @endforeach
                             <th>Update</th>
                             <th>Delete</th>
-                            <th>Add</th>
+                           
                         </tr>    
                     </thead>
                     <tfoot>
@@ -29,16 +37,17 @@
                             @endforeach
                             <th>Update</th>
                             <th>Delete</th>
-                            <th>Add</th>
+            
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($data as $item)
-                        
-                        {{
-                            $idn=$tablename.'_id';
+                        @php
+                             $idn=$tablename.'_id';
 
-                        }}
+                        @endphp
+                        
+                       
                                  <tr>
                                     <form action="{{ route('editRecord', ['tablename' => $tablename, 'id' => $item->$idn]) }}" method="POST"> 
                                         @csrf
@@ -62,11 +71,9 @@
                                             </button>                              
                                          </form>
                                     </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FormModal" >
-                                            <i class="fa-solid fa-add"></i>
-                                        </button>
-                                    </td>
+                                   
+                                        
+                                   
                                 </tr> 
                         @endforeach
                     </tbody>
