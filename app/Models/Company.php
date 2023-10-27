@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MS_Company extends Model
+class Company extends Model
 {
     use HasFactory;
     protected $table = 'ms_company';
     protected $primaryKey = 'ms_company_id';
+    public $timestamps = false; 
 
     protected $fillable = [
         'ms_company_name_en',
@@ -20,4 +21,17 @@ class MS_Company extends Model
         'ms_company_updated_by',
         'ms_company_updated_date',
     ];
+
+
+
+// public static function get(){
+
+//     return MS_Company::get();
+
+// }
+
+// public static function find($id){
+    
+// }
+
 }

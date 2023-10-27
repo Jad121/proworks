@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- ================== BEGIN core-css ================== -->
     <link href="{{ asset('assets/css/vendor.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/google/app.min.css') }}" rel="stylesheet">
@@ -17,6 +17,38 @@
     <link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('assets/plugins/gritter/css/jquery.gritter.css') }}" rel="stylesheet"> --}}
     <!-- ================== END page-css ================== -->
+  
+      {{-- <link href="{{asset('assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
+	<link href="{{asset('assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css')}}" rel="stylesheet" /> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    <!-- DataTables JavaScript -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+   
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+
+    <script>
+           function csrfHeader() {
+    
+
+    return {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    };
+}
+    </script>
+    
 </head>
 <body>
     <!-- BEGIN #loader -->
@@ -65,7 +97,7 @@
             <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
                 <!-- BEGIN menu -->
                 <div class="menu">
-                    <div class="menu-item has-sub">
+                    <div class="menu-item has-sub mt-5">
                      
                         <a href="javascript:;" class="menu-link">
                             <div class="menu-icon">
@@ -110,7 +142,15 @@
         <!-- END #sidebar -->
 
         <!-- BEGIN #content -->
+        <div id="content" class="app-content">
+            <div class="row">
+                 @yield('content')
 
+            </div>
+           
+            
+        </div>
+             
         <!-- END #content -->
 
         <!-- BEGIN scroll-top-btn -->

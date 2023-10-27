@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MS_Status extends Model
+class Status extends Model
 {
     use HasFactory;
     protected $table = 'ms_status';
     protected $primaryKey = 'ms_status_id';
+    public $timestamps = false; 
 
     protected $fillable = [
         'ms_status_name_en',

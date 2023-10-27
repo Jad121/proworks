@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MS_Service extends Model
+class Service extends Model
 {
     use HasFactory;
     protected $table = 'ms_service';
     protected $primaryKey = 'ms_service_id';
+    public $timestamps = false; 
 
     protected $fillable = [
         'ms_service_name_en',

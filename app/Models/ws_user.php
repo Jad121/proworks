@@ -13,6 +13,7 @@ class ws_user extends Authenticatable
 
     protected $table= 'ws_user';
     protected $primaryKey = 'ws_user_id';
+    public $timestamps = false; 
     protected $fillable = [
         'ws_country_id',
         'ws_user_first_name',

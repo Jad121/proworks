@@ -7,13 +7,12 @@
           <thead>
             <tr>
                 <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                {{-- <th>Password Name</th> --}}
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Email</th>
+                <th>Status Name English</th>
+                <th>Status Name Arabic</th>
+                <th>Status Name Chinese</th>
+                <th>Status Key</th>
                 <th>Update</th>
+                
                 <th>Delete</th>
             </tr>
           </thead>
@@ -31,18 +30,18 @@
         $(document).ready(function() {
             $('#data-table-default').DataTable({
                 ajax: {
-                    // url:{{url("/user/get")}}
-                    url: '/getUsers', // Replace with your Laravel route
+                    url: '/status/get', 
                     dataSrc: '',
                 },
                 columns: [
-                    { data: 'ws_user_id' },
-                    { data: 'ws_user_first_name' },
-                    { data: 'ws_user_last_name' },
-                    // { data: 'ws_user_password' },
-                    { data: 'ws_user_address' },
-                    { data: 'ws_user_phone' },
-                    { data: 'ws_user_email' },
+                    { data: 'ms_status_id' },
+                    { data: 'ms_status_name_en' },
+                    { data: 'ms_status_name_ar' },
+                    { data: 'ms_status_name_cn' },
+                    { data: 'ms_status_key' },
+
+                    
+                  
                     {
                         data: null,
                         render: function(data, type, row) {
@@ -61,28 +60,28 @@
 
 
             $('#add-button').click(function() {
-                $('#modalTitle').text('Add User');
-                $('#addUpdateModal .modal-body').load("{{ route('users.form') }}");
+                $('#modalTitle').text('Add Form');
+                $('#addUpdateModal .modal-body').load("{{ route('status.form') }}");
                 $('#addUpdateModal').modal('show');
             });
 
             // Handling the "Update" button click
             $('#data-table-default tbody').on('click', 'button.btn-primary', function() {
                 var data = $('#data-table-default').DataTable().row($(this).parents('tr')).data();
-                $('#modalTitle').text('Update User');
-                var userId = data.ws_user_id;
-                $('#addUpdateModal .modal-body').load("{{ route('users.form') }}?id=" + userId);
+                $('#modalTitle').text('Update Form');
+                var recordId = data.ms_status_id;
+                $('#addUpdateModal .modal-body').load("{{ route('status.form') }}?id=" + recordId);
                 $('#addUpdateModal').modal('show');
             })
 
             $('#data-table-default tbody').on('click', 'button.btn-danger', function() {
                 var data = $('#data-table-default').DataTable().row($(this).parents('tr')).data();
-                var userId = data.ws_user_id;
+                var recordId= data.ms_status_id;
                $.ajax({
                 headers:csrfHeader(),
-                url:'/users/delete/',
+                url:'/status/delete/',
                 method:'post',
-                data:{userId:userId},
+                data:{recordId:recordId},
                 success:function(response){
                     alert(response.message)
                     $('#data-table-default').DataTable().ajax.reload();
@@ -105,7 +104,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">User Record</h5>
+                <h5 class="modal-title" id="modalTitle">Records</h5>
               
             </div>
             <div class="modal-body">

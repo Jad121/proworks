@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MS_Employee extends Model
+class Employee extends Model
 {
     use HasFactory;
-    protected $table = 'ms_employee';
+    protected $table = 'ws_employee';
     protected $primaryKey = 'ms_employee_id';
+    public $timestamps = false; 
 
     protected $fillable = [
         'ms_company_id',

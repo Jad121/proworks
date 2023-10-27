@@ -4,7 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\WS_UserController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\EmployeeController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +46,71 @@ Route::delete('/dashboard/table/{tablename}/{id}', [AdminController::class, 'del
 Route::put('/dashboard/{tablename}/{id}/edit', [AdminController::class, 'updateRecord'])->name('editRecord');
 Route::post('/dashboard/addRecord/{tablename}',[AdminController::class,'addRecord'])->name('addRecord');
 
+
+
+//Users
+
+Route::get('/dashboard/tables/ws_user',[UserController::class,'list']);
+Route::get('/getUsers',[UserController::class,'getAll']);
+Route::get('/users/form',[UserController::class,'form'])->name('users.form');
+Route::post('/users/submit', [UserController::class, 'submitForm'])->name('users.submit');
+Route::post('/users/add',[UserController::class,'addRecord'])->name('users.add');
+Route::post('/users/update/{recordId}',[UserController::class,'updateRecord'])->name('users.update');
+Route::post('/users/delete',[UserController::class,'deleteRecord'])->name('users.delete');
+
+//Company
+Route::get('/company/get',[CompanyController::class,'getAll']);
+Route::get('/dashboard/tables/ms_company',[CompanyController::class,'list']);
+Route::get('/company/form',[CompanyController::class,'form'])->name('company.form');
+Route::post('/company/submit', [CompanyController::class, 'submitForm'])->name('company.submit');
+Route::post('/company/add',[CompanyController::class,'addRecord'])->name('company.add');
+Route::post('/company/update/{recordId}',[CompanyController::class,'updateRecord'])->name('company.update');
+Route::post('/company/delete',[CompanyController::class,'deleteRecord'])->name('company.delete');
+
+//Country
+Route::get('/country/get',[CountryController::class,'getAll']);
+Route::get('/dashboard/tables/ws_country',[CountryController::class,'list']);
+Route::get('/country/form',[CountryController::class,'form'])->name('country.form');
+Route::post('/country/submit', [CountryController::class, 'submitForm'])->name('country.submit');
+Route::post('/country/add',[CountryController::class,'addRecord'])->name('country.add');
+Route::post('/country/update/{recordId}',[CountryController::class,'updateRecord'])->name('country.update');
+Route::post('/country/delete',[CountryController::class,'deleteRecord'])->name('country.delete');
+
+//Sevice
+Route::get('/service/get',[ServiceController::class,'getAll']);
+Route::get('/dashboard/tables/ms_service',[ServiceController::class,'list']);
+Route::get('/service/form',[ServiceController::class,'form'])->name('service.form');
+Route::post('/service/submit', [ServiceController::class, 'submitForm'])->name('service.submit');
+Route::post('/service/add',[ServiceController::class,'addRecord'])->name('service.add');
+Route::post('/service/update/{recordId}',[ServiceController::class,'updateRecord'])->name('service.update');
+Route::post('/service/delete',[ServiceController::class,'deleteRecord'])->name('service.delete');
+
+//Status
+Route::get('/status/get',[StatusController::class,'getAll']);
+Route::get('/dashboard/tables/ms_status',[StatusController::class,'list']);
+Route::get('/status/form',[StatusController::class,'form'])->name('status.form');
+Route::post('/status/submit', [StatusController::class, 'submitForm'])->name('status.submit');
+Route::post('/status/add',[StatusController::class,'addRecord'])->name('status.add');
+Route::post('/status/update/{recordId}',[StatusController::class,'updateRecord'])->name('status.update');
+Route::post('/status/delete',[StatusController::class,'deleteRecord'])->name('status.delete');
+
+//Employee
+Route::get('/employee/get',[EmployeeController::class,'getAll']);
+Route::get('/dashboard/tables/ws_employee',[EmployeeController::class,'list']);
+Route::get('/employee/form',[EmployeeController::class,'form'])->name('employee.form');
+Route::post('/employee/submit', [EmployeeController::class, 'submitForm'])->name('employee.submit');
+Route::post('/employee/add',[EmployeeController::class,'addRecord'])->name('employee.add');
+Route::post('/employee/update/{recordId}',[EmployeeController::class,'updateRecord'])->name('employee.update');
+Route::post('/employee/delete',[EmployeeController::class,'deleteRecord'])->name('employee.delete');
+Route::get('/getSelect',[EmployeeController::class,'getSelect']);
 //User 
-Route::get('/dashboard/tables/ws_user',[WS_UserController::class,'index']);
-Route::post('/ws_user/addRecord',[WS_UserController::class,'addRecord']);
-Route::put('/ws_user/updateRecord/{recordId}',[WS_UserController::class,'UpdateRecord']);
-Route::get('/getUsers',[WS_UserController::class,'getAll']);
-Route::get('/getCountries',[WS_UserController::class,'getAllCountries']);
+
+// Route::post('/ws_user/addRecord',[WS_UserController::class,'addRecord']);
+// Route::post('/ws_user/updateRecord/{recordId}',[WS_UserController::class,'UpdateRecord'])-;
+//Route::delete('/ws_user/deleteRecord/{recordId}',[WS_UserController::class,'deleteRecord']);
+
+
+
+Route::get('/getCountries',[UserController::class,'getAllCountries']);
 
 
