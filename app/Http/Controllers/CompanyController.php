@@ -9,11 +9,12 @@ use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
-    public function getAll()
+
+    public function list()
     {
-        $company = Company::all();
-        return response()->json($company);
+        return view('company.list');
     }
+
 
 
     public function form()
@@ -21,26 +22,30 @@ class CompanyController extends Controller
 
         $company = [];
         $action = request()->has('id') ? 'update' : 'add';
-        if(request()->has('id')){
+        if (request()->has('id')) {
             $company = Company::find(request()->id)->toArray();
+           
         }
-        return view('Company.form', compact('company', 'action'));
-
-       
+        // return $company["ms_company_name_en"];
+        return view('company.form', [
+            "company"=>$company,
+            "action"=>$action
+        ]);
     }
 
 
-    public function list()
+
+    public function getAll()
     {
-        return view('Company.list');
+        $company = Company::all();
+        return response()->json($company);
     }
 
-  
-   
+
 
     public function addRecord(Request $request)
     {
-       
+
         $company =   $request->validate([
             'ms_company_name_en' => 'required',
             'ms_company_name_ar' => 'required',
@@ -52,7 +57,7 @@ class CompanyController extends Controller
             'ms_company_name_ar' => $request->ms_company_name_ar,
             'ms_company_name_cn' => $request->ms_company_name_cn,
             'ms_company_created_by' => auth()->user()->ws_user_id,
-           
+
 
         ]);
         return response()->json([
@@ -78,11 +83,12 @@ class CompanyController extends Controller
 
 
         ]);
-        return response()->json(['message' => 'Record Updated successfully','status'=>'success']);
+        return response()->json(['message' => 'Record Updated successfully', 'status' => 'success']);
     }
 
-    public function deleteRecord(Request $request){
-        Company::where('ms_company_id',$request->recordId)->delete();
-        return response()->json(['message'=>'Record Deleted Successfuly','status'=>'success']);
+    public function deleteRecord(Request $request)
+    {
+        Company::where('ms_company_id', $request->recordId)->delete();
+        return response()->json(['message' => 'Record Deleted Successfuly', 'status' => 'success']);
     }
 }

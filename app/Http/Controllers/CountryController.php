@@ -8,26 +8,7 @@ use Carbon\Carbon;
 
 class CountryController extends Controller
 {
-    
-    public function getAll()
-    {
-        $country = Country::all();
-        return response()->json($country);
-    }
 
-
-    public function form()
-    {
-
-        $country = [];
-        $action = request()->has('id') ? 'update' : 'add';
-        if(request()->has('id')){
-            $country = Country::find(request()->id)->toArray();
-        }
-        return view('country.form', compact('country', 'action'));
-
-       
-    }
 
 
     public function list()
@@ -35,12 +16,36 @@ class CountryController extends Controller
         return view('country.list');
     }
 
-  
-   
+    public function form($id = null,$copy=false)
+    {
+
+        $country = [];
+        $action = $id && !$copy ? 'update' : 'add';
+        if ($id) {
+            $country = Country::find($id)->toArray();
+        }
+        return view('country.form', compact('country', 'action'));
+    }
+
+    public function copy($id)
+    {
+        return $this->form($id, true);
+    }
+
+    public function getAll()
+    {
+        $country = Country::all();
+        return response()->json($country);
+    }
+
+
+
+
+
 
     public function addRecord(Request $request)
     {
-       
+
         $country =   $request->validate([
             'ws_country_name_en' => 'required',
             'ws_country_name_ar' => 'required',
@@ -52,7 +57,7 @@ class CountryController extends Controller
             'ws_country_name_ar' => $request->ws_country_name_ar,
             'ws_country_name_cn' => $request->ws_country_name_cn,
             'ws_country_created_by' => auth()->user()->ws_user_id,
-           
+
 
         ]);
         return response()->json([
@@ -78,13 +83,13 @@ class CountryController extends Controller
 
 
         ]);
-        return response()->json(['message' => 'Record Updated successfully','status'=>'success']);
+        return response()->json(['message' => 'Record Updated successfully', 'status' => 'success']);
     }
 
-    public function deleteRecord(Request $request){
-        Country::where('ws_country_id',$request->recordId)->delete();
-        return response()->json(['message'=>'User Deleted Successfuly','status'=>'success']);
-    }
+    public function deleteRecord(Request $request)
+    {
 
+        Country::where('ws_country_id', $request->recordId)->delete();
+        return response()->json(['message' => 'Deleted Successfuly', 'status' => 'success']);
+    }
 }
-

@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('ws_user_password');
             $table->string('ws_user_phone')->nullable();
             $table->string('ws_user_address')->nullable();
-            $table->unsignedBigInteger('ms_user_created_by');
-            $table->timestamp('ms_user_created_date')->useCurrent();
-            $table->unsignedBigInteger('ms_user_updated_by')->nullable();
-            $table->timestamp('ms_user_updated_date')->nullable();
+            $table->unsignedBigInteger('ws_user_created_by');
+            $table->timestamp('ws_user_created_date')->useCurrent();
+            $table->unsignedBigInteger('ws_user_updated_by')->nullable();
+            $table->timestamp('ws_user_updated_date')->nullable();
 
            
         

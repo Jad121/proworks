@@ -14,6 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        DB::table('ws_country')->insert([
+            'ws_country_name_en' => 'Lebanon',
+            'ws_country_name_ar' => 'لبنان',
+            'ws_country_name_cn' => "Lebanon",
+            'ws_country_created_by' => 1,
+        ]);
+
+
         DB::table('ws_user')->insert([
             'ws_user_first_name' => 'admin',
             'ws_user_last_name' => 'admin',
