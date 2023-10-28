@@ -48,22 +48,6 @@
 
 
 
-                <div class="modal fade" id="addUpdateModal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalTitle">Records</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
 
                 <script>
                     var $table;
@@ -106,44 +90,8 @@
 
                         $('[data-add-record]').click(function() {
                             loadHtml('#addUpdateModal .modal-content', "{{ route('country.form') }}");
-
                             $('#addUpdateModal').modal('show');
                         });
-
-
-                        $(document).on('click', '[data-update-record]', function() {
-                            var data = $table.DataTable().row($(this).parents('tr')).data();
-                            var recordId = data.ws_country_id;
-                            loadHtml('#addUpdateModal .modal-content', "{{ route('country.form') }}?id=" +
-                                recordId);
-
-                            $('#addUpdateModal').modal('show');
-                        })
-
-                        $(document).on('click', '[data-delete-record]', function() {
-                            var data = $table.DataTable().row($(this).parents('tr')).data();
-                            var recordId = data.ws_country_id;
-
-                            $.ajax({
-
-                                url: '/country/delete/',
-                                method: 'post',
-                                headers: csrfHeader(),
-                                data: {
-                                    recordId: recordId
-                                },
-                                success: function(response) {
-                                    alert(response.message)
-                                    $table.DataTable().ajax.reload();
-                                }
-                            })
-                        })
-
-
-
-
-
-
 
                     })
                 </script>

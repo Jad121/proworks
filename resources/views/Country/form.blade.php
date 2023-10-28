@@ -25,8 +25,8 @@
             </div>
             <!-- END panel-heading -->
             <!-- BEGIN panel-body -->
-            <div class="panel-body">
-
+            <div class="panel-body position-relative">
+                {{ view('partials.loader') }}
                 <form id="addUpdateForm" data-parsley-validate
                     action="{{ $action === 'add' ? route('country.add') : route('country.update', ['recordId' => $country['ws_country_id']]) }}"
                     method="POST">
@@ -38,7 +38,7 @@
                     <input class="form-control form-control-lg" type="hidden" value="{{ $country['ws_country_id'] ?? '' }}"
                         name="id" id="id">
                     <div class="form-group">
-                        <label for="ws_country_name_en" class="col-form-label">Name(En)</label>
+                        <label for="ws_country_name_en" class="col-form-label">{{__("messages.name")}}(En)</label>
                         <input class="form-control form-control-lg" type="text"
                             value="{{ $country['ws_country_name_en'] ?? '' }}" name="ws_country_name_en"
                             id="ws_country_name_en" required data-parsley-required-message="Required">
@@ -100,8 +100,11 @@
                 e.preventDefault();
 
                 if ($(".parsley-required").length) {
+                    //form is not valid
                     return;
                 }
+                 
+                $("#formLoader").removeClass("d-none");
                 var action = $(this).attr("action");
                 var formData = $(this).serialize();
                 $.ajax({
@@ -109,10 +112,27 @@
                     url: action,
                     headers: csrfHeader(),
                     data: formData,
-                    success: function(result) {
-                        alert(result.message)
-                        location.href = "{{ route('country.list') }}";
-                        $('#addUpdateModal').modal('hide');
+                    complete: function() {
+                        $("#formLoader").addClass("d-none");
+                    },
+                    success: function(response) {
+                        toast(response);
+
+                        if (response.status == "success") {
+                            setTimeout(function() {
+                                location.href = "{{ route('country.list') }}";
+                            }, 1000);
+                        }
+
+                    },
+                    error: function(jqXHR, exception) {
+
+                        toast({
+                            message: jqXHR.statusText,
+                            type: "danger",
+                            duration: 5000,
+                            style: "top:5rem !important"
+                        });
                     }
 
                 });

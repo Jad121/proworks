@@ -28,7 +28,7 @@ class AuthController extends Controller
         if($ws_user && Hash::check($request->ws_user_password, $ws_user->ws_user_password)){
             
                 Auth::login($ws_user);
-                return redirect('/index');
+                return redirect("country/list");
            
         }
 

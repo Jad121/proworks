@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{$lang}}">
 
 <head>
     <meta charset="utf-8" />
@@ -27,7 +27,7 @@
 
 </head>
 
-<body>
+<body dir="{{$dirc}}">
     <!-- BEGIN #loader -->
     <div id="loader" class="app-loader">
         <span class="spinner"></span>
@@ -198,7 +198,7 @@
 
 
                     <div class="menu-item">
-                        <a href="{{ route('country.list') }}" class="menu-link">
+                        <a href="{{ uri('country/list') }}" class="menu-link">
                             <div class="menu-icon">
                                 <i class="material-icons">extension</i>
                             </div>
@@ -207,7 +207,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <a href="{{ route('company.list') }}" class="menu-link">
+                        <a href="{{  uri('company/list') }}" class="menu-link">
                             <div class="menu-icon">
                                 <i class="material-icons">extension</i>
                             </div>

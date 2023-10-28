@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{$lang}}">
 
 <head>
     <meta charset="utf-8" />
@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body dir="{{$dirc}}">
     <!-- BEGIN #loader -->
     <div id="loader" class="app-loader">
         <span class="spinner"></span>

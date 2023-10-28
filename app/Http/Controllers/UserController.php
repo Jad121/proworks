@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ws_user;
 use App\Models\Country;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 class UserController extends Controller
@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function getAll()
     {
-        $user = ws_user::all();
+        $user = User::all();
         return response()->json($user);
     }
 
@@ -24,7 +24,7 @@ class UserController extends Controller
         $user = [];
         $action = request()->has('id') ? 'update' : 'add';
         if(request()->has('id')){
-            $user = ws_user::find(request()->id)->toArray();
+            $user = User::find(request()->id)->toArray();
         }
         return view('User.form', compact('user', 'action'));
 
@@ -48,26 +48,26 @@ class UserController extends Controller
     {
        
         $user =   $request->validate([
-            'ws_user_fname' => 'required',
-            'ws_user_lname' => 'required',
+            'User_fname' => 'required',
+            'User_lname' => 'required',
 
             //add more later
         ]);
 
         // $user["pass"]=Hash::make($user["pass"]);
-        // $user["create_by"]=auth()->user()->ws_user_id,
+        // $user["create_by"]=auth()->user()->User_id,
         // $user["time"]=Hash::make($user["pass"]);
 
 
-        ws_user::create([
-            'ws_user_first_name' => $request->ws_user_fname,
-            'ws_user_last_name' => $request->ws_user_lname,
-            'ws_user_email' => $request->ws_user_email,
-            'ws_user_address' => $request->ws_user_address,
-            'ws_user_phone' => $request->ws_user_phone,
-            'ws_user_created_by' => auth()->user()->ws_user_id,
+        User::create([
+            'User_first_name' => $request->User_fname,
+            'User_last_name' => $request->User_lname,
+            'User_email' => $request->User_email,
+            'User_address' => $request->User_address,
+            'User_phone' => $request->User_phone,
+            'User_created_by' => auth()->user()->User_id,
             'ws_country_id' => $request->countryDropdown,
-            'ws_user_password' => Hash::make($request->ws_user_password)
+            'User_password' => Hash::make($request->User_password)
         ]);
         return response()->json([
             "status" => "success",
@@ -78,27 +78,27 @@ class UserController extends Controller
     public function updateRecord(Request $request, $recordId)
     {
         $request->validate([
-            'ws_user_fname' => 'required',
-            'ws_user_lname' => 'required'
+            'User_fname' => 'required',
+            'User_lname' => 'required'
             //add more later
         ]);
-        ws_user::where('ws_user_id', $recordId)->update([
-            'ws_user_first_name' => $request->ws_user_fname,
-            'ws_user_last_name' => $request->ws_user_lname,
-            'ws_user_email' => $request->ws_user_email,
-            'ws_user_address' => $request->ws_user_address,
-            'ws_user_phone' => $request->ws_user_phone,
-            'ws_user_created_by' => auth()->user()->ws_user_id,
-            'ws_user_updated_by' => auth()->user()->ws_user_id,
+        User::where('User_id', $recordId)->update([
+            'User_first_name' => $request->User_fname,
+            'User_last_name' => $request->User_lname,
+            'User_email' => $request->User_email,
+            'User_address' => $request->User_address,
+            'User_phone' => $request->User_phone,
+            'User_created_by' => auth()->user()->User_id,
+            'User_updated_by' => auth()->user()->User_id,
             'ws_country_id' => $request->countryDropdown,
-            'ws_user_password' => Hash::make($request->ws_user_password),
-            'ws_user_updated_date' => Carbon::now()->toDateTimeString(),
+            'User_password' => Hash::make($request->User_password),
+            'User_updated_date' => Carbon::now()->toDateTimeString(),
         ]);
         return response()->json(['message' => 'Record Updated successfully','status'=>'success']);
     }
 
     public function deleteRecord(Request $request){
-        ws_user::where('ws_user_id',$request->userId)->delete();
+        User::where('User_id',$request->userId)->delete();
         return response()->json(['message'=>'User Deleted Successfuly','status'=>'success']);
     }
 }
